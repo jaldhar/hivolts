@@ -1,0 +1,114 @@
+ORIGINAL SPECIFICATION
+======================
+
+Taken from http://paleyontology.com/AP_CS/hivolts/
+
+Here are some characteristics of the game board.
+
+*   The game board itself is a 12-by-12 bounded grid
+*   There are three object types:
+    1.  You (the smiley face)
+    2.  Twelve (12) Mhos which are stored as a list
+    3.  Electric fences which cover the whole perimeter
+    4.  Twenty (20) electric fences on the interior
+
+Everything is randomly placed except for the fences that are on the perimeter.
+
+When it is your turn, you are allowed to move to any adjacent square or you can
+jump. Adjacent is defined as one square away, either horizontal, vertical, or
+diagonal. There are three possibilities when you move onto an adjacent square:
+
+If you move to an adjacent square, one of three things can happen:
+
+1.  You move onto an electric fence and lose.
+2.  You move onto a Mho and lose.
+3.  You move onto an empty square.
+
+When you jump, you move to a random square, but you are guaranteed that you will
+not land on an electric fence. When you jump, it remains your turn to move. So, 
+there are only two possibilities if you jump.
+
+1.  You jump onto a Mho and lose.
+2.  You jump onto an empty square.
+
+If you jump and do not lose, it remains your turn. Assuming that you move (not
+jump) onto an empty square, then the Mhos move, in the order in which they are
+stored in the list, as follows:
+
+1.  If you are directly vertical or hortizontal to a Mho, the Mho MUST move
+    directly towards you one square. If this results in the Mho landing on an
+    electric fence, the Mho is removed from the board. If it lands on an empty
+    square, it remains on the board.
+2.  If the Mho is not directly horizontal or vertical from you, then it has
+    three squares it can move to, the one that is diagonally towards you, one
+    that is horizontal so that it would be closer to you, and one that is
+    vertical so that it would be closer to you. The Mho will try to move onto
+    an empty square in the following order:
+    1.  Diagonally towards you
+    2.  If the horizontal distance towards you is greater than or equal to the
+        vertical distance, move horizontally towards you;
+    3.  If the horizontal distance towards you is less than or equal to the
+        vertical distance, move vertically towards you;
+    4.  If none of these can result in landing on an empty square, repeat the
+        order with the attempt to move onto an electric fence
+    5.  If none of these can result in landing on an electric fence, do not
+        move (this happens when a Mho can only try to move onto other Mhos)
+
+After each Mho has moved once, it becomes your turn. If there are no Mhos
+remaining, you win.
+
+The keys for moving you should be:
+
+Q: up and left
+W: up
+E: up and right
+A: left
+S: sit (stay on the same square for one turn)
+D: right
+Z: down and left
+X: down
+C: down and right
+J: jump
+
+If the user has won or lost, that should be indicated, along with a prompt if
+
+MY NOTES
+========
+
+I built my design around an Entity-Component-System pattern as described at:
+https://www.gamedev.net/resources/_/technical/game-programming/understanding-component-entity-systems-r3013
+and
+https://www.gamedev.net/resources/_/technical/game-programming/implementing-component-entity-systems-r3382
+though my version uses a few more C++ object-oriented features.
+
+Entities are defined in entity.h.
+
+components are defined in components.h and stored as a series of vectors in the
+World data structure which is defined in world.h.
+
+Unlike a strict ECS system, my entities and components aren't pure data; they
+have a few small helper methods.  In general I have made all  data public. 
+There seemed to be little point in adding private restrictions and getters,
+setters etc.
+
+Together the entities and components can be said to be the Model in the Model-
+View-Controller (MVC) design pattern.
+
+The Systems are classes which by and large only have one public method called
+update() which takes the World as an argument.  The Create and Render systems
+also have an init() method and Render also has an end() method.  The other
+private methods and data are hidden behind the pIMPL pattern.  There is also one
+standalone function playerTurn() in hivolts.cc which also has the main()
+function which contains the game loop.
+
+The systems except Input and Render, playerTurn(), and main() together make up
+the Controller in the MVC pattern.
+
+Input and Render can be said to be the View in the MVC pattern.  All the code
+that needs to be ported to bring hivolts to a new platform should be contained
+in those two classes only.
+
+-- 
+By Jaldhar h. Vyas <jaldhar@braincells.com>
+Copyright (C) 2017, Consolidated Braincells Inc.  All rights reserved.
+"Do What Thou Wilt." shall be the whole of the license.
