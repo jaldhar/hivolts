@@ -11,6 +11,9 @@ mho's (represented by green 'O's) around a 12x12 board.  The board is surrounded
 by electric fences and there are another 20 fences randomly placed in the board.
 Fences are represented as yellow '#'s.
 
+Incidently a mho is a unit of electrical conductance equal to the reciprocal of
+the ohm.  (mho is ohm backwards.)  In the SI system it is known as Siemens.
+
 If you collide with a mho or a fence you will be electrocuted and lose the game.
 If you can destroy all the mhos by causing them to collide with fences or with
 each other, you will win.
