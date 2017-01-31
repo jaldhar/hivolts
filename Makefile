@@ -4,7 +4,7 @@
 # "Do What Thou Wilt." shall be the whole of the license.
 SHELL=/bin/sh
 CXX=c++
-CXXFLAGS=-std=c++14 -O2 -g -Wall -Wextra -Wcast-qual -Wformat=2
+CXXFLAGS=-std=c++14 -O2 -g -Wall -Wextra -Wpedantic -Wcast-qual -Wformat=2 -Wshadow -Wno-missing-field-initializers  -Wpointer-arith -Wcast-align -Wwrite-strings -Wno-unreachable-code -Wnon-virtual-dtor -Woverloaded-virtual
 LDFLAGS= -lncurses
 .SUFFIXES: .cc
 PROGRAM=hivolts

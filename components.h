@@ -11,6 +11,7 @@
 #include "command.h"
 
 struct Component {
+    virtual ~Component() = default;
     virtual void clear()=0;
 };
 
@@ -19,7 +20,7 @@ struct Appearance : public Component {
     Appearance() : _is{ APPEARANCE::EMPTY } {
     }
 
-    ~Appearance() = default;
+   virtual  ~Appearance() = default;
 
     void clear() {
         _is = APPEARANCE::EMPTY;
@@ -33,7 +34,7 @@ struct Explodes {
     Explodes() : _ttl{0} {
     }
 
-    ~Explodes() = default;
+    virtual ~Explodes() = default;
 
     void clear() {
         _ttl = 0;
@@ -47,7 +48,7 @@ struct Inputs {
     Inputs() : _command {COMMAND::IGNORE} {
     }
 
-    ~Inputs() = default;
+    virtual ~Inputs() = default;
 
     void clear() {
         _command = COMMAND::IGNORE;
@@ -61,7 +62,7 @@ struct Jump {
     Jump() : _isJumping{false} {
     }
 
-    ~Jump() = default;
+    virtual ~Jump() = default;
 
     void clear() {
         _isJumping = false;
@@ -75,7 +76,7 @@ struct Moves {
     Moves() : _newRow {-1}, _newColumn{-1}, _isMoving{false} {
     }
 
-    ~Moves() = default;
+    virtual ~Moves() = default;
 
     void clear() {
         _newRow = -1;
@@ -101,7 +102,7 @@ struct Position {
     _row {row}, _column{column}, _zorder(zorder) {
     }
 
-    ~Position() = default;
+    virtual ~Position() = default;
 
     bool operator<(const Position& p) const {
         if (_row < p._row) return true;

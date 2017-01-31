@@ -80,7 +80,7 @@ Input::InputImpl::~InputImpl() = default;
 // Called when a key that is not in the command map is pressed.
 void Input::InputImpl::badInput(World& world, const int i) {
     world._movements[i]._isMoving = false;
-};
+}
 
 // called when a move that would take the player off the board is made.  It is
 // only for completeness really as a collision with border fences would happen
@@ -88,7 +88,7 @@ void Input::InputImpl::badInput(World& world, const int i) {
 void Input::InputImpl::badMove(World& world, const int i) {
     world._inputs[i]._command = COMMAND::BAD;
     world._movements[i]._isMoving = false;
-};
+}
 
 // Called when the player makes a successful move.
 bool Input::InputImpl::move(World& world, const int row,

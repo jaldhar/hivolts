@@ -77,7 +77,7 @@ const int numExplosions,const int numFences) {
 
     // Place MHOs.
     for (auto i = 0; i < numMhos; ++i, ++nextEntity) {
-        auto pos = _impl.place(world);
+        pos = _impl.place(world);
         _impl.makeEntity(world, nextEntity, pos._row, pos._column,
         APPEARANCE::MHO, ZORDER_BOTTOM, COMPONENT_MHO | COMPONENT_MOVEMENT);
         _impl._board[pos._row][pos._column] = true;
@@ -103,7 +103,7 @@ const int numExplosions,const int numFences) {
 
     // Place additional fences.
     for (auto i = 0; i < numFences; ++i, ++nextEntity) {
-        auto pos = _impl.place(world);
+        pos = _impl.place(world);
         _impl.makeEntity(world, nextEntity, pos._row, pos._column,
             APPEARANCE::FENCE, ZORDER_BOTTOM, COMPONENT_FENCE);
         _impl._board[pos._row][pos._column] = true;
